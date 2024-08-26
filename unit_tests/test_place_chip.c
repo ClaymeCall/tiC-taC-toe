@@ -4,7 +4,7 @@ int main()
 {
 	int res;
 	char *test_board = malloc(10);
-	char *tmp_board = malloc(10);
+	char *tmp_board = malloc(11);
 
 	if (!test_board || !tmp_board)
 		return (-1);
