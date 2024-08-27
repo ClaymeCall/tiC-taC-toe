@@ -11,9 +11,10 @@
 int place_chip(unsigned int pos, char chip_symbol, char *board)
 {
 	unsigned int board_slots = 0;
+	unsigned int index = pos - 1;
 
 	/* Testing validity of args */
-	if (pos > 8 || board == NULL)
+	if (index > 8 || board == NULL)
 		return (-1);
 
 	while (board[board_slots])
@@ -23,8 +24,8 @@ int place_chip(unsigned int pos, char chip_symbol, char *board)
 		return (-1);
 
 	/* Checking if chosen slot is empty */
-	if (board[pos] == ' ')
-		board[pos] = chip_symbol;
+	if (board[index] == ' ')
+		board[index] = chip_symbol;
 	else
 		return (-2);
 
