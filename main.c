@@ -11,6 +11,7 @@ int main(void)
 	char board[10] = "         ";
 	char winner = ' ', curr_player = 'X';
 	unsigned int chosen_slot = 0, turn_count = 0;
+	int placing_res = 0;
 
 	enter_alt_screen();
 
@@ -21,22 +22,32 @@ int main(void)
 		++turn_count;
 		print_board(board);
 
-		/* Prompt player to play its move */
-		printf("Choose your slot :");
-		scanf("%u", &chosen_slot);
-
-		while(place_chip(chosen_slot, curr_player, board) == -2)
+		do 
 		{
-			printf("This slot is already taken, choose again :");
+			/* Prompt player to play its move */
+			if( placing_res == 0)
+				printf("Choose your slot :");
 			scanf("%u", &chosen_slot);
 
+			placing_res = place_chip(chosen_slot, curr_player, board);
+
+			if(placing_res == -1)
+				printf("Slot number must be between 1 and 9");
+			else if(placing_res == -2)
+				printf("This slot is already taken, choose again :");
 		}
+		while (placing_res <= 0);
 
-
-		if (turn_count >= 3 && check_win(curr_player, board) == 1)
+		if (check_win(curr_player, board) == 1)
 		{
 			winner = curr_player;
 			printf("%c player wins !\n", winner);
+			exit_alt_screen();
+			break;
+		}
+		else if(check_win(curr_player, board) == 2)
+		{
+			printf("The game is a draw.\n");
 			exit_alt_screen();
 			break;
 		}
