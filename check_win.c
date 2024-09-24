@@ -5,7 +5,7 @@
 * @player: The players symbol to check.
 * @board: The board to evaluate.
 *
-* Return: 1 if player has won, 0 otherwise.
+* Return: 0 if nobody has won, 1 if player has won, 2 if draw, -1 otherwise.
 */
 int check_win(char player_symbol, char *board)
 {
@@ -66,5 +66,17 @@ int check_win(char player_symbol, char *board)
 			return (1);
 	}
 
-	return (0);
+	/* Checking for draw */
+	counter = 0;
+
+	for (i = 0; i < 9; i ++)
+	{
+		if(board[i] != ' ')
+			++counter;
+	}
+	if(counter == 9)
+		return (2);
+
+	/* Returning error as no valid case was encountered */
+	return (-1);
 }
